@@ -4,14 +4,93 @@
 
 namespace org.feph.hyperledger.hackathon.net
 
-participant User identified by email {
+
+/*
+  Enumerated Types
+*/
+enum CandidateType{
+  o President
+  o VicePresident
+  o Senator
+  o Dummy
+}
+
+participant Voters identified by voterId {
+	o String voterId
+	o String firstName
+	o String lastName
+	o String precintId
+	o Integer irisId optional
+	o Integer fingerId optional
+	o Integer picture
+	o Integer noOfVotesLeft default = 14
+	o Boolean hasVoted default = false
+}
+
+participant Admin identified by adminId {
+	o String adminId
+	o String adminName
+	o String adminUserName
+	o String adminPassword
+}
+
+asset CandidateTypeId identified by candidateTypeId {
+	o String candidateTypeId
+	o CandidateType candidateType
+}
+
+asset Candidate identified by candidateId {
+	o String candidateId
+	o CandidateType candidateTypeId
+	o String firstName
+	o String lastName
+}
+
+asset Vote identified by voteId {
+	o String voteId
+	o String voterId
+	o String candidateId
+	o DateTime timestamp
+}
+
+asset Precint identified by precintId {
+	o String precintId
+	o String precintName
+	o String brgyId
+}
+
+asset Brgy identified by brgyId {
+	o String brgyId
+	o String brgyName
+	o String cityId
+}
+
+asset City identified by cityId {
+	o String cityId
+	o String cityName
+	o String provinceId
+}
+
+asset Province identified by provinceId {
+	o String provinceId
+	o String provinceName
+	o String regionId
+}
+
+asset Region identified by regionId {
+	o String regionId
+	o String regionName
+}
+
+
+/* participant User identified by email {
   o String email
 }
 
 asset SampleAsset identified by assetId {
   o String assetId
   o String value
-}
+} */
 
 transaction ChangeAssetValue {
   o String newValue
